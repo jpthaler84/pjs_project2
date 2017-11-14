@@ -1,0 +1,21 @@
+{
+  "name": "pjs_project2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpthaler84/pjs_project2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpthaler84/pjs_project2/issues"
+  },
+  "homepage": "https://github.com/jpthaler84/pjs_project2#readme"
+}

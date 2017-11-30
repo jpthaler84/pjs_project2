@@ -22,7 +22,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 //require the express routes from burgers_controller.js set to variable routes
-var routes = require('./controllers/burgers_controller.js');
+var routes = require('./controllers/forumController.js');
 //use the var routes (express routes) when url returns /index
 app.use('/', routes);
 
@@ -30,7 +30,7 @@ app.use('/', routes);
 //syncing our sequlize models and then starting our express app
 db.sequelize.sync({force: true}).then(function(){
 	app.listen(PORT, function(){
-	console.log("listenning on http://localhost:" + PORT);
+	console.log("listening on http://localhost:" + PORT);
 });
 });
 

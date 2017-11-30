@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Thread = sequelize.define("Thread", {
+  var Comment = sequelize.define("Comment", {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -13,5 +13,5 @@ module.exports = function(sequelize, DataTypes) {
       len: [1]
     },
   });
-  return Thread;
+  return Comment;
 };

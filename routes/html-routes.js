@@ -13,3 +13,9 @@ app.get("/blog", function(req, res) {
   });
 
 };
+
+app.get("/main", function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/layouts/main.html"));
+  });
+
+};

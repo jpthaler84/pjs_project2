@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 8080;
 // Require Models
 var db = require("./models");
 
-// Set Up Express App
+// Set Up Express App for data parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -20,17 +20,17 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("public"));
 
 //=========
-var exphbs = require("express-handlebars");
+//var exphbs = require("express-handlebars");
 
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
 // override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
-app.engine("handlebars", exphbs({
-    defaultLayout: "main"
-}));
-app.set("view engine", "handlebars");
+//app.use(methodOverride("_method"));
+//app.engine("handlebars", exphbs({
+//    defaultLayout: "main"
+//}));
+//app.set("view engine", "handlebars");
 
 
 

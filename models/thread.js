@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len: [1]
     },
+    category: {
+      type:DataTypes.STRING,
+      defaultValue: "Personal"
+    }
   });
   return Thread;
 };

@@ -110,7 +110,7 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("thread");
-    window.location.href = "/cms?post_id=" + currentPost.id;
+    window.location.href = "/main?post_id=" + currentThread.id;
   }
 
   // This function displays a messgae when there are no posts

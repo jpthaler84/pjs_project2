@@ -20,8 +20,8 @@ app.get("/newthread", function(req, res) {
     res.sendFile(path.join(__dirname, "../views/layouts/newthread.html"));
   });
 
-app.get("/threadview", function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/layouts/threadview.html"));
+app.get("/thread", function(req, res) {
+    res.sendFile(path.join(__dirname, "../views/layouts/thread.html"));
   });
 
 };

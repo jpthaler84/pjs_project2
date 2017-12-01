@@ -1,82 +1,117 @@
 $(document).ready(function() {
-  // Gets an optional query string from our url (i.e. ?post_id=23)
-  var url = window.location.search;
-  var postId;
-  // Sets a flag for whether or not we're updating a post to be false initially
-  var updating = false;
+  // Getting a reference to the input field where user adds a new todo
+  var $newThreadInput = $("input.new-thread");
+  // Our new todos will go inside the todoContainer
+  var $todoContainer = $(".thread-container");
+  // Adding event listeners for deleting, editing, and adding todos
+  $(document).on("click", "button.delete", deleteThread);
+  $(document).on("click", "button.complete", toggleComplete);
+  $(document).on("click", ".thread-item", editThread);
+  $(document).on("keyup", ".thread-item", finishEdit);
+  $(document).on("blur", ".thread-item", cancelEdit);
+  $(document).on("submit", "#thread-form", insertThread);
+//initial thread array
+  var threads =[];
 
-  // If we have this section in our url, we pull out the post id from the url
-  // In localhost:8080/cms?post_id=1, postId is 1
-  if (url.indexOf("?post_id=") !== -1) {
-    postId = url.split("=")[1];
-    getPostData(postId);
+//getting threads from db upon load
+  getThreads();
+
+//resets threads displayed with new thread from thread_db
+  function initializeRows() {
+     $todoContainer.empty();
+     var rowsToAdd = [];
+      for (var i = 0; i < threads.length; i++) {
+       rowsToAdd.push(createNewRow(threads[i]));
+      }
+      $threadContainer.prepend(rowsToAdd);
+   }
+// this function grabs threads from the db and updates the view
+  function getThreads() {
+     $.get("/api/threads", function(data) {
+       todos = data;
+        initializeRows();
+      });
+    }
+// function handle he hsowing the unput box for  auser to edit a thread
+   function editThread() {
+    var currentThread = $(this).data("thread");
+    $(this).children().hide();
+    $(this).children("input.edit").val(currentThread.text);
+    $(this).children("input.edit").show();
+    $(this).children("input.edit").focus();
+  }
+// toggles complete status
+  function toggleComplete(event) {
+    event.stopPropagation();
+    var todo = $(this).parent().data("thread");
+    todo.complete = !todo.complete;
+    updateThread(thread);
   }
 
-  // Getting jQuery references to the post body, title, form, and category select
-  var bodyInput = $("#body");
-  var titleInput = $("#title");
-  var cmsForm = $("#cms");
-  var postCategorySelect = $("#category");
-  // Giving the postCategorySelect a default value
-  postCategorySelect.val("Personal");
-  // Adding an event listener for when the form is submitted
-  $(cmsForm).on("submit", function handleFormSubmit(event) {
-    event.preventDefault();
-    // Wont submit the post if we are missing a body or a title
-    if (!titleInput.val().trim() || !bodyInput.val().trim()) {
-      return;
+  //functnion starts updateing thread in db if a user hits enter
+  //while editing
+  function finishEdit() {
+    var updatedThread = $(this).data("thread");
+    if (event.keycode === 13) {
+      updatedThread.text = $(this).children("input").val().trim();
+      $(this).blur();
+        updatedThread(updatedThread);
+        
     }
-    // Constructing a newPost object to hand to the database
-    var newPost = {
-      title: titleInput.val().trim(),
-      body: bodyInput.val().trim(),
-      category: postCategorySelect.val()
+  }
+
+  //this function will update the db
+  function updateThread(thread){
+     $.ajax({
+      method: "PUT",
+      url: "/api/threads",
+      data: thread
+    }).done(getThreads);
+  }
+  // this function is called whn a thread is in edit, loses focus, and is concelled
+  function cancelEdit(){
+    var currentThread = $(this).data("thread");
+    if (currentThread) {
+      $(this).children().hide();
+      $(this).children("input.edit").val(currentThread.text);
+      $(this).children("span").show();
+      $(this).children("button").show();
+    }
+    }
+//this functionconstructs a thread row
+
+  function createNewRow(thread) {
+    var $newInputRow = $(
+      [
+        "<li class='list-group-item todo-item'>",
+        "<span>",
+        thread.text,
+        "</span>",
+        "<input type='text' class='edit' style='display: none;'>",
+        "<button class='delete btn btn-default'>x</button>",
+        "<button class='complete btn btn-default'>✓</button>",
+        "</li>"
+      ].join("")
+    );
+
+    $newInputRow.find("button.delete").data("id", thread.id);
+    $newInputRow.find("input.edit").css("display", "none");
+    $newInputRow.data("thread", thread);
+    if (thread.complete) {
+      $newInputRow.find("span").css("text-decoration", "line-through");
+    }
+    return $newInputRow;
+  }
+
+    // This function inserts a new thread into our database and then updates the view
+  function insertThread(event) {
+    event.preventDefault();
+    var thread = {
+      text: $newItemInput.val().trim(),
+      complete: false
     };
 
-    console.log(newPost);
-
-    // If we're updating a post run updatePost to update a post
-    // Otherwise run submitPost to create a whole new post
-    if (updating) {
-      newPost.id = postId;
-      updatePost(newPost);
-    }
-    else {
-      submitPost(newPost);
-    }
-  });
-
-  // Submits a new post and brings user to blog page upon completion
-  function submitPost(Post) {
-    $.post("/api/posts/", Post, function() {
-      window.location.href = "/blog";
-    });
-  }
-
-  // Gets post data for a post if we're editing
-  function getPostData(id) {
-    $.get("/api/posts/" + id, function(data) {
-      if (data) {
-        // If this post exists, prefill our cms forms with its data
-        titleInput.val(data.title);
-        bodyInput.val(data.body);
-        postCategorySelect.val(data.category);
-        // If we have a post with this id, set a flag for us to know to update the post
-        // when we hit submit
-        updating = true;
-      }
-    });
-  }
-
-  // Update a given post, bring user to the blog page when done
-  function updatePost(post) {
-    $.ajax({
-      method: "PUT",
-      url: "/api/posts",
-      data: post
-    })
-    .done(function() {
-      window.location.href = "/blog";
-    });
+    $.post("/api/threads", thread, getThreads);
+    $newItemInput.val("");
   }
 });

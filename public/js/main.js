@@ -1,7 +1,7 @@
 $(document).ready(function() {
   /* global moment */
   // thread-container holds all of our threads--REMEMBER TO CHECK FUCKING HTML
-  var blogContainer = $(".thread-container");
+  var threadContainer = $(".thread-container");
   var threadCategorySelect = $("#category");
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handleThreadDelete);
@@ -39,17 +39,17 @@ $(document).ready(function() {
     });
   }
 
-  // Getting the initial list of posts
+  // Getting the initial list of threads
   getThreads();
   // InitializeRows handles appending all of our constructed thread HTML inside
   // threadContainer
   function initializeRows() {
-    threadContainer.empty();
+    mainContainer.empty();
     var threadsToAdd = [];
     for (var i = 0; i < threads.length; i++) {
       threadsToAdd.push(createNewRow(threads[i]));
     }
-    threadContainer.append(threadsToAdd);
+    mainContainer.append(threadsToAdd);
   }
 
   // This function constructs a thread's HTML
@@ -118,11 +118,11 @@ $(document).ready(function() {
   // This function displays a messgae when there are no posts
   function displayEmpty() {
     //line below was  blogContainer.empty();
-    threadContainer.empty();
+    mainContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No threads yet for this category, navigate <a href='/cms'>here</a> in order to create a new thread.");
-    threadContainer.append(messageh2);
+    messageh2.html("No threads yet for this category, navigate <a href='/newthread'>here</a> in order to create a new thread.");
+    mainContainer.append(messageh2);
   }
 
   // This function handles reloading new posts when the category changes

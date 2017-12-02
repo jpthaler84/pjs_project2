@@ -24,4 +24,13 @@ app.get("/thread", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/thread.html"));
   });
 
+app.get("/about", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/about.html"));
+  });
+app.get("/feedback", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/feedback.html"));
+  });
+app.get("/contact", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/contact.html"));
+  });
 };

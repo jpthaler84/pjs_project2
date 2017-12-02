@@ -7,6 +7,46 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <body>
+			<div id = "topNav" class="boardNav">
+			<div id="boardNavDesktop" class="desktop">
+				<span class="boardList">
+				   "["
+				   <a href="/v/catalog" title="Video Games">v</a>
+				   "/"
+				   <a href="/2/catalog" title="Test Board 2">2</a>
+				   "/"
+				   <a href="/3/catalog" title="Test Board 3">3</a> 
+				   "]"
+				   <div class="boardSelect"> 
+				   		<strong>Board</strong> 
+				   		<select id="boardSelect">
+				   			<option value="v" href="main">/G/ - General
+				   			</option>
+				   			<option value="2">/2/ - Test Board 2
+				   			</option>
+				   			<option value="aco">/3/ - Test Board 3</option>
+				   		</select> 
+				   </div>
+				<!-- -->
+				 <span class="custom-menu-ctrl">[<a data-cm-edit="" title="Edit Menu" href="#">Edit</a>]
+				 </span>
+
+				</span>
+				<span id="navtopright">
+					[<a href="javascript:void(0);" id="settingsWindowLink">Settings</a>]
+					[<a href="" target="_top">Home</a>]
+				</span>
+			</div>
+		</div>
+			<div class="boardBanner"> 
+					<div id="bannerCnt" class="title desktop" >
+						<img id="vBanner" alt="forum" src="https://pbs.twimg.com/profile_images/657254218244329472/Pim4zc0E.png">
+					</div>
+
+						<div class="boardTitle">New Thread
+
+					</div> 
+			</div>
 <form name="post" action="" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="MAX_FILE_SIZE" value="4194304">
 	<input type="hidden" name="mode" value="regist">
@@ -74,38 +114,34 @@
 				</td>
 			</tr>
 		</thead>
-				<td data-utc="1493903967" class="blotter-date">
-					05/04/17
-				</td>
-			
+				
 		<div class="container">
 		<div class="row">
-			<div class="row">
-      <div class="col-md-2 col-sm-2 top-30">
-        <a class="btn btn-default" href="/main">Go to main</a>
+	  <div class="row">
+     	 <div class="col-md-2 col-sm-2 top-30">
+        	<a class="btn btn-default" href="/main">Go to main</a>
+     	 </div>
       </div>
-    </div>
-			<div class="col-md-6 col-md-offset-3">
-				<form id="newthread">
-					<div class="form-group">
-						<label for="title">Title:</label>
-						<input type="text" class="form-control" id="title">
-						<br />
-						<label for="body">Body:</label>
-						<textarea class="form-control" rows="10" id="body"></textarea>
-						<div class="form-group">
-							<label for="category">Select Category:</label>
-							<select class="form-control" id="category">
-						    <option value="Personal">Personal</option>
-						    <option value="Product Review">Product Review</option>
-						    <option value="Political">Political</option>
-  						</select>
-						</div>
-						<br />
-						<button type="submit" class="btn btn-success submit">Submit</button>
-					</div>
-				</form>
-			</div>
+			<div id="absbot" class="absBotText">
+			<div class="mobile">
+				<span id="disable-mobile">
+					[<a href="javascript:disableMobile();">Disable Mobile View / Use Desktop Site</a>]
+						<br>
+						<br>
+				</span>
+				<span id="enable-mobile">
+					[<a href="javascript:enableMobile();">Enable Mobile View / Use Mobile Site</a>]
+						<br>
+						<br>
+					</span>
+				</div>
+				<span class="absBotDisclaimer">All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.
+				</span>
+				<div id="footer-links">
+					<a href="/about" target="_blank">About</a> • 
+					<a href="/feedback" target="_blank">Feedback</a> • 
+					<a href="/contact" target="_blank">Contact</a>
+				</div>
 		</div>
 	</div>
 	<!-- Custom Script -->
@@ -113,6 +149,6 @@
 
 
 
-	</style>
+	
 </body>
 </html>

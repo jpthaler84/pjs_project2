@@ -4,15 +4,15 @@ var db = require("../models");
 // =============================================================
 module.exports = function(app) {
 
-  // GET route for getting all of the posts
-  app.get("/api/thread/", function(req, res) {
+  // GET route for getting all of the threads
+  app.get("/api/threads/", function(req, res) {
     db.Thread.findAll({})
     .then(function(dbThread) {
       res.json(dbThread);
     });
-  
-  // Get route for returning posts of a specific category
-  app.get("/api/thread/category/:category", function(req, res) {
+  });
+  // Get route for returning threads of a specific category
+  app.get("/api/threads/category/:category", function(req, res) {
     db.Thread.findAll({
       where: {
         category: req.params.category
@@ -24,7 +24,7 @@ module.exports = function(app) {
   });
 
   // Get rotue for retrieving a single thread
-  app.get("/api/thread/:id", function(req, res) {
+  app.get("/api/threads/:id", function(req, res) {
     db.Thread.findOne({
       where: {
         id: req.params.id
@@ -36,7 +36,7 @@ module.exports = function(app) {
   });
 
   // POST route for saving a new thread
-  app.thread("/api/thread", function(req, res) {
+  app.thread("/api/threads", function(req, res) {
     console.log(req.body);
     db.Thread.create({
       title: req.body.title,
@@ -49,7 +49,7 @@ module.exports = function(app) {
   });
 
   // DELETE route for deleting threads
-  app.delete("/api/thread/:id", function(req, res) {
+  app.delete("/api/threads/:id", function(req, res) {
     db.Thread.destroy({
       where: {
         id: req.params.id
@@ -61,7 +61,7 @@ module.exports = function(app) {
   });
 
   // PUT route for updating threads
-  app.put("/api/thread", function(req, res) {
+  app.put("/api/threads", function(req, res) {
     db.Thread.update(req.body,
       {
         where: {

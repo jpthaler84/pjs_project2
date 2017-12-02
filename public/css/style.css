@@ -45,7 +45,8 @@ div.pageJump{
 }
 .recaptcha_image_cell{background-color:transparent!important;
 }
-#content table{border-collapse:collapse;border-spacing:0;
+#content table{border-collapse:collapse;
+  border-spacing:0;
 }
 .jpnFlag{height:11px;width:17px;
 	}

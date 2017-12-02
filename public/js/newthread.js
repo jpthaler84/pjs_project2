@@ -18,7 +18,7 @@ $(document).ready(function() {
   var newthreadForm = $("#newthread");
   var threadCategorySelect = $("#category");
   // Giving the postCategorySelect a default value
-  threadCategorySelect.val("Video Games");
+  threadCategorySelect.val("personal");
   // Adding an event listener for when the form is submitted
   $(newthreadForm).on("submit", function handleFormSubmit(event) {
     event.preventDefault();
@@ -48,14 +48,14 @@ $(document).ready(function() {
 
   // Submits a new post and brings user to main page upon completion
   function submitThread(Thread) {
-    $.thread("/api/thread/", thread, function() {
+    $.thread("/api/threads/", thread, function() {
       window.location.href = "/main";
     });
   }
 
   // Gets post data for a post if we're editing
   function getThreadData(id) {
-    $.get("/api/thread/" + id, function(data) {
+    $.get("/api/threads/" + id, function(data) {
       if (data) {
         // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);

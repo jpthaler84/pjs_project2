@@ -1,13 +1,13 @@
 $(document).ready(function() {
   /* global moment */
   // thread-container holds all of our threads
-  var blogContainer = $(".thread-container");
-  var postCategorySelect = $("#category");
+  var threadContainer = $(".thread-container");
+  var threadCategorySelect = $("#category");
   // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handlePostDelete);
-  $(document).on("click", "button.edit", handlePostEdit);
-  postCategorySelect.on("change", handleCategoryChange);
-  var posts;
+  $(document).on("click", "button.delete", handleThreadDelete);
+  $(document).on("click", "button.edit", handleThreadEdit);
+  threadCategorySelect.on("change", handleCategoryChange);
+  var threads;
 
   // This function grabs posts from the database and updates the view
   function getThreads(category) {
@@ -34,7 +34,7 @@ $(document).ready(function() {
       url: "/api/threads/" + id
     })
     .done(function() {
-      getPosts(threadCategorySelect.val());
+      getThreads(threadCategorySelect.val());
     });
   }
 
@@ -48,13 +48,13 @@ $(document).ready(function() {
     for (var i = 0; i < threads.length; i++) {
       threadsToAdd.push(createNewRow(threads[i]));
     }
-    blogContainer.append(threadsToAdd);
+    threadContainer.append(threadsToAdd);
   }
 
   // This function constructs a thread's HTML
   function createNewRow(thread) {
     var newThreadPanel = $("<div>");
-    newPostPanel.addClass("panel panel-default");
+    newThreadPanel.addClass("panel panel-default");
     var newThreadPanelHeading = $("<div>");
     newThreadPanelHeading.addClass("panel-heading");
     var deleteBtn = $("<button>");
@@ -74,7 +74,7 @@ $(document).ready(function() {
       "-15px"
     });
     var newThreadPanelBody = $("<div>");
-    newPostPanelBody.aThreadass("panel-body");
+    newThreadPanelBody.aThreadass("panel-body");
     var newThreadBody = $("<p>");
     newThreadTitle.text(thread.title + " ");
     newThreadBody.text(thread.body);
@@ -95,18 +95,18 @@ $(document).ready(function() {
 
   // This function figures out which post we want to delete and then calls
   // deletePost
-  function handlePostDelete() {
-    var currentPost = $(this)
+  function handleThreadDelete() {
+    var currentThread = $(this)
       .parent()
       .parent()
       .data("thread");
-    deletePost(currentPost.id);
+    deleteThread(currentThread.id);
   }
 
   // This function figures out which post we want to edit and takes it to the
   // Appropriate url
-  function handlePostEdit() {
-    var currentPost = $(this)
+  function handleThreadEdit() {
+    var currentThread = $(this)
       .parent()
       .parent()
       .data("thread");
@@ -125,7 +125,7 @@ $(document).ready(function() {
   // This function handles reloading new posts when the category changes
   function handleCategoryChange() {
     var newThreadCategory = $(this).val();
-    getPosts(newThreadCategory);
+    getThreads(newThreadCategory);
   }
 
 });
